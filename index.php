@@ -50,7 +50,7 @@ if (file_exists('LookingGlass/Config.php')) {
 						<div class="panel-body">
 							<p>Server Location: <strong><?php echo $serverLocation; ?></strong></p>
 							<p>IPv4 Address: <?php echo $ipv4; ?></p>
-							<?php if (!empty($ipv6)) { echo '<p>IPv6 Address: '; $ipv6; echo '</p>'; } ?>
+							<?php if (!empty($ipv6)) { echo '<p>IPv6 Address: '; echo $ipv6; echo '</p>'; } ?>
 							<p>Your IP Address: <strong><a href="#tests" id="userip"><?php echo $_SERVER['REMOTE_ADDR']; ?></a></strong></p>
 						</div>
 					</div>
