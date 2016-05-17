@@ -1,8 +1,13 @@
 <?php
-if (!file_exists('LookingGlass/Config.php')) {
+// lazy config check/load
+if (file_exists('LookingGlass/Config.php')) {
+  require 'LookingGlass/Config.php';
+  if (!isset($ipv4, $ipv6, $siteName, $siteUrl, $serverLocation, $testFiles, $theme)) {
+    exit('Configuration variable/s missing. Please run configure.sh');
+  }
+} else {
   exit('Config.php does not exist. Please run configure.sh');
 }
-require 'LookingGlass/Config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +64,7 @@ require 'LookingGlass/Config.php';
       <header class="header nohighlight" id="overview">
         <div class="row">
           <div class="span12">
-            <h1><a id="title" href="<?php echo $_SERVER['REQUEST_URI']; ?>"><?php echo $siteName; ?></a></h1>
+            <h1><a id="title" href="<?php echo $siteUrl; ?>"><?php echo $siteName; ?></a></h1>
           </div>
         </div>
       </header>
@@ -137,7 +142,7 @@ require 'LookingGlass/Config.php';
     </div><!-- /container -->
 
     <!-- Javascript -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="assets/js/jquery-1.11.2.min.js"></script>
     <script src="assets/js/LookingGlass.min.js"></script>
     <script src="assets/js/XMLHttpRequest.min.js"></script>
   </body>

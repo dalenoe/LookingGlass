@@ -1,34 +1,13 @@
 #!/bin/bash
 ################################
-# MIT License
-# ===========
-#
-# Copyright (c) 2012 Nick Adams <nick89@zoho.com>
-#
-# Permission is hereby granted, free of charge, to any person obtaining
-# a copy of this software and associated documentation files (the
-# "Software"), to deal in the Software without restriction, including
-# without limitation the rights to use, copy, modify, merge, publish,
-# distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to
-# the following conditions:
-#
-# The above copyright notice and this permission notice shall be included
-# in all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# LookingGlass - User friendly PHP Looking Glass
 #
 # package     LookingGlass
-# author      Nick Adams <nick89@zoho.com>
-# copyright   2012 Nick Adams.
+# author      Nick Adams <nick@iamtelephone.com>
+# copyright   2015 Nick Adams.
 # link        http://iamtelephone.com
-# version     1.2.0
+# license     http://opensource.org/licenses/MIT MIT License
+# version     1.3.0
 ################################
 
 #######################
@@ -45,39 +24,14 @@ function createConfig()
   cat > "$DIR/$CONFIG" <<EOF
 <?php
 /**
- * MIT License
- * ===========
- *
- * Copyright (c) 2012 Nick Adams <nick89@zoho.com>
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
- * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * LookingGlass - User friendly PHP Looking Glass
  *
  * @package     LookingGlass
- * @author      Nick Adams <nick89@zoho.com>
- * @copyright   2012 Nick Adams.
+ * @author      Nick Adams <nick@iamtelephone.com>
+ * @copyright   2015 Nick Adams.
  * @link        http://iamtelephone.com
-<<<<<<< HEAD
- * @version     1.1.0
-=======
- * @version     1.2.0
->>>>>>> dev
+ * @license     http://opensource.org/licenses/MIT MIT License
+ * @version     1.3.0
  */
 
 // IPv4 address
@@ -88,6 +42,8 @@ function createConfig()
 \$rateLimit = (int) '${RATELIMIT}';
 // Site name (header)
 \$siteName = '${SITE}';
+// Site URL
+\$siteUrl = '${URL}';
 // Server location
 \$serverLocation = '${LOCATION}';
 // Test files
@@ -134,6 +90,8 @@ function config()
         LOCATION="$(echo $f2 | awk -F\' '{print $(NF-1)}')"
       elif [ $f1 = '$siteName' ]; then
         SITE=("$(echo $f2 | awk -F\' '{print $(NF-1)}')")
+      elif [ $f1 = '$siteUrl' ]; then
+        URL=("$(echo $f2 | awk -F\' '{print $(NF-1)}')")
       elif [ $f1 = '$testFiles[]' ]; then
         TEST+=("$(echo $f2 | awk -F\' '{print $(NF-1)}')")
       elif [ $f1 = '$theme' ]; then
@@ -149,23 +107,29 @@ function config()
 function database()
 {
     if [ ! -f "${DIR}/ratelimit.db" ]; then
-      echo ''
+      echo
       echo 'Creating SQLite database...'
       sqlite3 ratelimit.db  'CREATE TABLE RateLimit (ip TEXT UNIQUE NOT NULL, hits INTEGER NOT NULL DEFAULT 0, accessed INTEGER NOT NULL);'
       sqlite3 ratelimit.db 'CREATE UNIQUE INDEX "RateLimit_ip" ON "RateLimit" ("ip");'
       read -e -p 'Enter the username of your webserver (E.g. www-data): ' USER
+      read -e -p 'Enter the user group of your webserver (E.g. www-data): ' GROUP
       # Change owner of folder & DB
       if [[ -n $USER ]]; then
-        chown $USER:$USER "${DIR}"
-        chown $USER:$USER ratelimit.db
+          if [[ -n $GROUP ]]; then
+            chown $USER:$GROUP "${DIR}"
+            chown $USER:$GROUP ratelimit.db
+          else
+            chown $USER:$USER "${DIR}"
+            chown $USER:$USER ratelimit.db
+          fi
       else
         cat <<EOF
 
 ##### IMPORTANT #####
 Please set the owner of LookingGlass (subdirectory) and ratelimit.db
-to that of your webserver.
-chown user:user LookingGlass
-chown user:user ratelimit.db
+to that of your webserver:
+chown user:group LookingGlass
+chown user:group ratelimit.db
 #####################
 EOF
       fi
@@ -189,7 +153,6 @@ function mtrFix()
 ##### IMPORTANT #####
 You are not root. Please log into root and run:
 chmod 4755 /usr/sbin/mtr
-and
 ln -s /usr/sbin/mtr /usr/bin/mtr
 #####################
 EOF
@@ -212,9 +175,20 @@ function requirements()
       INSTALL='apt-get'
     fi
   elif [ -f /usr/bin/yum ]; then
-    INSTALL='yum'
+    # Check for root
+    if [ $(id -u) != "0" ]; then
+      INSTALL='sudo yum'
+    else
+      INSTALL='yum'
+    fi
   else
-    echo 'Skipping script requirements.'
+    cat <<EOF
+
+##### IMPORTANT #####
+Unknown Operating system. Install dependencies manually:
+host mtr iputils-ping traceroute sqlite3
+#####################
+EOF
     return
   fi
 
@@ -232,14 +206,14 @@ function requirements()
         else
           ${INSTALL} -y install ${i}
         fi
-        echo ''
+        echo
       fi
     # Fix ping
     elif [ $i = 'iputils-ping' ]; then
       echo 'Checking for ping...'
       if [ ! -f "/bin/ping" ]; then
         ${INSTALL} -y install ${i}
-        echo ''
+        echo
       fi
     # Check both bin and sbin
     elif [ $i = 'traceroute' ]; then
@@ -247,14 +221,14 @@ function requirements()
       if [ ! -f "/usr/bin/$i" ]; then
         if [ ! -f "/usr/sbin/$i" ]; then
           ${INSTALL} -y install ${i}
-          echo ''
+          echo
         fi
       fi
     else
       echo "Checking for $i..."
       if [ ! -f "/usr/bin/$i" ]; then
         ${INSTALL} -y install ${i}
-        echo ''
+        echo
       fi
     fi
     sleep 1
@@ -269,14 +243,16 @@ function setup()
   sleep 1
 
   # Local vars
-  local IP4=''
-  local IP6=''
-  local LOC=''
-  local T=''
-  local S=''
+  local IP4=
+  local IP6=
+  local LOC=
+  local S=
+  local T=
+  local U=
 
   # User input
   read -e -p "Enter your website name (Header/Logo) [${SITE}]: " S
+  read -e -p "Enter the public URL to this LG (including http://) [${URL}]: " U
   read -e -p "Enter the servers location [${LOCATION}]: " LOC
   read -e -p "Enter the test IPv4 address [${IPV4}]: " IP4
   read -e -p "Enter the test IPv6 address (Re-enter everytime this script is run) [${IPV6}]: " IP6
@@ -295,6 +271,9 @@ function setup()
   if [[ -n $S ]]; then
     SITE=$S
   fi
+  if [[ -n $U ]]; then
+    URL=$U
+  fi
   # Rate limit
   if [[ "$RATE" = 'y' ]] || [[ "$RATE" = 'yes' ]]; then
     read -e -p "Enter the # of commands allowed per hour (per IP) [${RATELIMIT}]: " RATE
@@ -306,10 +285,10 @@ function setup()
   else
     RATELIMIT=0
   fi
-  # Create sparse files
+  # Create test files
   if [[ -n $T ]]; then
-    echo ''
-    echo 'Removing old sparse files:'
+    echo
+    echo 'Removing old test files:'
     # Delete old test files
     local REMOVE=($(ls ../*.test 2>/dev/null))
     for i in "${REMOVE[@]}"; do
@@ -320,8 +299,8 @@ function setup()
       fi
     done
     TEST=($T)
-    echo ''
-    echo 'Creating new sparse files:'
+    echo
+    echo 'Creating new test files:'
     # Create new test files
     testFiles
   fi
@@ -341,15 +320,15 @@ function testFiles()
   for i in "${TEST[@]}"; do
     if [[ -n i ]] && [ ! -f "../${i}.test" ]; then
       echo "Creating $i test file"
-      dd if=/dev/zero of="../${i}.test" bs=1 count=0 seek=${i} >/dev/null 2>&1
+      shred --exact --iterations=1 --size="${i}" - > "../${i}.test"
       A=$((A+1))
       sleep 1
     fi
   done
 
-  # No sparse files were created
+  # No test files were created
   if [ $A = 0 ]; then
-    echo 'Sparse files already exist...'
+    echo 'Test files already exist...'
   fi
 }
 
@@ -427,7 +406,7 @@ cat <<EOF
 # for your network.
 #
 # Created by Nick Adams (telephone)
-# http://github.com/telephone
+# http://iamtelephone.com
 #
 ########################################
 
@@ -446,33 +425,34 @@ EOF
   sleep 1
 else
   echo 'Installation stopped :('
-  echo ''
+  echo
   exit
 fi
 
 # Global vars
 CONFIG='Config.php'
 DIR="$(cd "$(dirname "$0")" && pwd)"
-IPV4=''
-IPV6=''
-LOCATION=''
-RATELIMIT=''
-SITE=''
+IPV4=
+IPV6=
+LOCATION=
+RATELIMIT=
+SITE=
+URL=
 TEST=()
-THEME=''
+THEME=
 
 # Install required scripts
 echo 'Checking script requirements:'
 requirements
-echo ''
+echo
 # Read Config file
 echo 'Checking for previous config:'
 config
-echo ''
+echo
 # Create test files
-echo 'Creating sparse test files:'
+echo 'Creating test files:'
 testFiles
-echo ''
+echo
 # Follow setup
 cat <<EOF
 
@@ -483,10 +463,10 @@ cat <<EOF
 EOF
 echo 'Running setup:'
 setup
-echo ''
+echo
 # Theme
 defaultTheme
-echo ''
+echo
 # Create Config.php file
 echo 'Creating Config.php...'
 createConfig
