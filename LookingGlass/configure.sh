@@ -339,7 +339,7 @@ function defaultTheme()
 {
   # Set default theme
   if [[ "$THEME" = '' ]]; then
-    THEME='cerulean'
+    THEME='bootstrap'
   fi
 
   # Change theme
@@ -351,12 +351,8 @@ function defaultTheme()
 #
 # Themes:
 #
-# 1) cerulean
-# 2) readable
-# 3) spacelab
-# 4) united
+# 1) bootstrap
 #
-# Demo: http://lg.iamtelephone.com/themes
 #
 #########################################
 
@@ -377,7 +373,7 @@ function themeChange()
 
   if [[ -n $NEWTHEME ]]; then
     # Check for valid theme
-    VALID=(cerulean readable spacelab united)
+    VALID=(bootstrap)
     MATCH=$(echo "${VALID[@]:0}" | grep -o $NEWTHEME)
     if [[ ! -z $MATCH ]]; then
       THEME=$NEWTHEME
