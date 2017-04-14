@@ -1,8 +1,12 @@
+* 1.4.0 (4/20/2017)
+  * nmap functionality added
+  * README updated for Dino's Workshop
+
 * 1.3.2 (2016-01-17)
   * Update HTML for Bootstrap 3
   * Remove Legacy Themes
   * Add Default Bootstap theme
-  
+
 * 1.3.1 (2016-01-17)
   * PHP7 compatibility fix
 

@@ -7,7 +7,7 @@
 # copyright   2015 Nick Adams.
 # link        http://iamtelephone.com
 # license     http://opensource.org/licenses/MIT MIT License
-# version     1.3.0
+# version     1.4.0
 ################################
 
 #######################
@@ -31,7 +31,7 @@ function createConfig()
  * @copyright   2015 Nick Adams.
  * @link        http://iamtelephone.com
  * @license     http://opensource.org/licenses/MIT MIT License
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 // IPv4 address
@@ -318,7 +318,7 @@ function testFiles()
 
   # Check for and/or create test file
   for i in "${TEST[@]}"; do
-    if [[ -n i ]] && [ ! -f "../${i}.test" ]; then
+    if [[ -n i ]] && [ ! -f "../LookingGlass/dinosworkshop-com-${i}.dltest" ]; then
       echo "Creating $i test file"
       shred --exact --iterations=1 --size="${i}" - > "../${i}.test"
       A=$((A+1))
@@ -472,6 +472,10 @@ database
 if [ "$INSTALL" = 'yum' ]; then
   mtrFix
 fi
+#fixes for ubuntu
+sudo chmod u+s `which ping`
+sudo chmod u+s `which ping6`
+sudo chmod u+s `which mtr`
 # All done
 cat <<EOF
 

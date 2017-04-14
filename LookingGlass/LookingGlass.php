@@ -7,7 +7,7 @@
  * @copyright   2015 Nick Adams.
  * @link        http://iamtelephone.com
  * @license     http://opensource.org/licenses/MIT MIT License
- * @version     1.3.0
+ * @version     1.4.0
  */
 namespace Telephone;
 
@@ -145,6 +145,24 @@ class LookingGlass
     {
         if ($host = $this->validate($host, 6)) {
             return $this->procExecute('traceroute -6 -A -w2 %s', $host, $fail);
+        }
+        return false;
+    }
+
+    /**
+     * Execute a 'mtr' command against given host:
+     * Mtr combines the functionality of the traceroute and ping programs in a
+     * single network diagnostic tool.
+     *
+     * @param  string $host
+     *   IP/URL to perform command against
+     * @return boolean
+     *   True on success
+     */
+    public function nmap($host)
+    {
+        if ($host = $this->validate($host)) {
+            return $this->procExecute('nmap -Pn %s', $host);
         }
         return false;
     }

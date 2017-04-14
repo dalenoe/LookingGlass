@@ -7,7 +7,7 @@
  * @copyright   2015 Nick Adams.
  * @link        http://iamtelephone.com
  * @license     http://opensource.org/licenses/MIT MIT License
- * @version     1.3.0
+ * @version     1.4.0
  */
 
 /**
@@ -26,7 +26,7 @@
 // check whether command and host are set
 if (isset($_GET['cmd']) && isset($_GET['host'])) {
     // define available commands
-    $cmds = array('host', 'mtr', 'mtr6', 'ping', 'ping6', 'traceroute', 'traceroute6');
+    $cmds = array('host', 'mtr', 'mtr6', 'ping', 'ping6', 'traceroute', 'traceroute6', 'nmap');
     // verify command
     if (in_array($_GET['cmd'], $cmds)) {
         // include required scripts

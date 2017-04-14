@@ -1,20 +1,22 @@
 # LookingGlass
+### v1.4.0
+
+This project has been modified for Dino's Workshop. Have any suggestions? Submit an issue.
+
+Our version is made to work on the Ubuntu operating system, though it should be fairly easy
+to tweak for other linux flavors.
 
 ## Overview
 
-LookingGlass is a user-friendly PHP based looking glass that allows the public (via a web interface) to execute network
-commands on behalf of your server.
-
-Current version: v1.3.2
-
-It's recommended that everyone updates their existing install!
+LookingGlass is a user-friendly PHP based looking glass that allows the public (via a web interface)
+to execute network commands on behalf of your server.
 
 ## Features
 
 * Automated install via bash script
 * IPv4 & IPv6 support
 * Live output via long polling
-* Multiple themes
+* Bootstrap theme
 * Rate limiting of network commands
 
 ## Implemented commands
@@ -26,40 +28,37 @@ It's recommended that everyone updates their existing install!
 * ping6 (IPv6)
 * traceroute
 * traceroute6 (IPv6)
+* nmap
+
+Want to see something else? Open an issue > https://gitlab.d1n0.link/dino/LookingGlass/issues/new
 
 __IPv6 commands will only work if your server has external IPv6 setup (or tunneled)__
 
 ## Requirements
 
-* PHP >= 5.3
+* PHP >= 7.0
 * PHP PDO with SQLite driver (required for rate-limit)
 * SSH/Terminal access (able to install commands/functions if non-existent)
 
 ## Install
 
-1. Download [LookingGlass](https://github.com/telephone/LookingGlass/archive/v1.3.0.tar.gz) to the intended
-folder within your web directory
-2. Extract archive:
-    - Option #1 - Extract archive to the current directory:
-        - `tar -zxvf LookingGlass-1.3.0.tar.gz --strip-components 1`
-    - Option #2 - Extract archive to a directory named `LookingGlass`:
-        - `tar -zxvf LookingGlass-1.3.0.tar.gz --transform 's!^[^/]\+\($\|/\)!LookingGlass\1!'`
-3. Navigate to the `LookingGlass` subdirectory in terminal
-4. Run `bash configure.sh`
-5. Follow the instructions and `configure.sh` will take care of the rest
+1. Download and extract on your webserver.
+2. Run configure.sh ```bash configure.sh```
+3. Enjoy! Please like the project on gitlab.
+
+Better install instructions coming soon!
 
 _Forgot a setting? Simply run the `configure.sh` script again_
 
 ## Updating
 
-1. Download [LookingGlass](https://github.com/telephone/LookingGlass/archive/v1.3.0.tar.gz) to the folder containing
-your existing install
-2. Extract archive: `tar -zxvf LookingGlass-1.3.0.tar.gz --overwrite --strip-components 1`
-    - This will overwrite/update existing files
-3. Navigate to the `LookingGlass` subdirectory in terminal
-4. Run `bash configure.sh`
-5. Follow the instructions and `configure.sh` will take care of the rest
-    - Note: Re-enter test files to create random test files from `GNU shred`
+Install instructions will be updated for 1.4.0
+
+1. Download and extract on your webserver. Overwriting your existing install.
+2. Run configure.sh ```bash configure.sh```
+3. Enjoy! Please like the project on gitlab.
+
+Better upgrade instructions coming soon!
 
 _Forgot a setting? Simply run the `configure.sh` script again_
 
@@ -89,4 +88,4 @@ For an HTTPS setup please visit:
 
 Code is licensed under MIT Public License.
 
-* If you wish to support my efforts, keep the "Powered by LookingGlass" link intact.
+* If you wish to support my efforts, keep the "Powered by LookingGlass" link intact. or buy me a beer? lol
