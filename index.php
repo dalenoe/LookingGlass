@@ -23,7 +23,7 @@ function getIp() {
 <!--
 *****************************
 **   Looking Glass by Telephone **
-**     Refined by AMDbuilder      **
+**     Modified by Dale Noe     **
 *****************************
 -->
 	<head>
@@ -36,12 +36,12 @@ function getIp() {
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
+
 		<link href="assets/css/<?php echo $theme; ?>.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
-		  
+
 			<div class="row" id="header">
 				<div class="col-xs-12">
 					<div class="page-header">
@@ -49,9 +49,9 @@ function getIp() {
 					</div>
 				</div>
 			</div>
-		  
+
 		  <!-- Network Information -->
-		  
+
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="panel panel-default">
@@ -70,36 +70,36 @@ function getIp() {
 						<div class="panel-body">
 							<h4>IPv4 Download Test</h4>
 							<?php
-								foreach ($testFiles as $val) 
+								foreach ($testFiles as $val)
 								{
 									echo "<a href=\"//{$ipv4}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 								}
 							?>
-							
-							<?php if (!empty($ipv6)) 
+
+							<?php if (!empty($ipv6))
 								{
 									echo "<h4>IPv6 Download Test</h4>";
-									foreach ($testFiles as $val) 
+									foreach ($testFiles as $val)
 									{
 										echo "<a href=\"//[{$ipv6}]/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 									}
-								} 
+								}
 							?>
-							
+
 						</div>
 					</div>
 				</div>
 			</div>
-		  
+
 		  <!-- Network Tests -->
-		  
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Network tests</div>
 						<div class="panel-body">
 							<form class="form-inline" id="networktest" action="#results" method="post">
-							
+
 								<div id="hosterror" class="form-group">
 									<div class="controls">
 										<input id="host" name="host" type="text" class="form-control" placeholder="Host or IP address">
@@ -114,14 +114,15 @@ function getIp() {
 										<?php if (!empty($ipv6)) { echo '<option value="ping6">ping6</option>'; } ?>
 										<option value="traceroute">traceroute</option>
 										<?php if (!empty($ipv6)) { echo '<option value="traceroute6">traceroute6</option>'; } ?>
+                    <option value="nmap">nmap -Pn</option>
 									</select>
 								</div>
-						
+
 								<button type="submit" id="submit" name="submit" class="btn btn-success">Run Test</button>
 							</form>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 
@@ -131,14 +132,17 @@ function getIp() {
 					<div class="panel panel-default">
 						<div class="panel-heading">Results</div>
 						<div class="panel-body">
-						
+
 							<pre id="response" style="display:none"></pre>
 						</div>
 					</div>
 				</div>
 			</div>
-		  
+
 			<footer class="footer">
+				<p class="pull-left">
+					Powered By: <a href="https://gitlab.d1n0.link/dino/LookingGlass" target="_blank">LookingGlass</a>
+				</p>
 				<p class="pull-right">
 					<a href="#">Back to top</a>
 				</p>
