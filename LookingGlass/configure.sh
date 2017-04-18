@@ -186,14 +186,14 @@ function requirements()
 
 ##### IMPORTANT #####
 Unknown Operating system. Install dependencies manually:
-host mtr iputils-ping traceroute sqlite3 php5-sqlite
+host mtr iputils-ping traceroute sqlite3 php5-sqlite nmap
 #####################
 EOF
     return
   fi
 
   # Array of required functions
-  local REQUIRE=(host mtr iputils-ping traceroute php5-sqlite sqlite3)
+  local REQUIRE=(host mtr iputils-ping traceroute php5-sqlite sqlite3 nmap)
 
   # Loop through required & install
   for i in "${REQUIRE[@]}"; do
@@ -404,6 +404,9 @@ cat <<EOF
 # Created by Nick Adams (telephone)
 # http://iamtelephone.com
 #
+# Modified by Dale Noe (dino)
+# https://gitlab.d1n0.link/dino
+#
 ########################################
 
 EOF
@@ -472,11 +475,14 @@ database
 if [ "$INSTALL" = 'yum' ]; then
   mtrFix
 fi
+
 #fixes for ubuntu
 sudo chmod u+s `which ping`
 sudo chmod u+s `which ping6`
 sudo chmod u+s `which mtr`
+sudo chmod u+s `which nmap`
 # All done
+
 cat <<EOF
 
 Installation is complete
