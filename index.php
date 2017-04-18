@@ -72,7 +72,7 @@ function getIp() {
 							<?php
 								foreach ($testFiles as $val)
 								{
-									echo "<a href=\"//{$ipv4}/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
+									echo "<a href=\"//{$ipv4}/LookingGlass/{$val}.dltest\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 								}
 							?>
 
@@ -81,7 +81,7 @@ function getIp() {
 									echo "<h4>IPv6 Download Test</h4>";
 									foreach ($testFiles as $val)
 									{
-										echo "<a href=\"//[{$ipv6}]/{$val}.test\" class=\"btn btn-xs btn-default\">{$val}</a> ";
+										echo "<a href=\"//[{$ipv6}]/LookingGlass/{$val}.dltest\" class=\"btn btn-xs btn-default\">{$val}</a> ";
 									}
 								}
 							?>

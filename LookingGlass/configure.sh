@@ -290,7 +290,7 @@ function setup()
     echo
     echo 'Removing old test files:'
     # Delete old test files
-    local REMOVE=($(ls ../*.test 2>/dev/null))
+    local REMOVE=($(ls ../LookingGlass/dinosworkshop-com-*.dltest 2>/dev/null))
     for i in "${REMOVE[@]}"; do
       if [ -f "${i}" ]; then
         echo "Removing ${i}"
