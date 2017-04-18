@@ -320,7 +320,7 @@ function testFiles()
   for i in "${TEST[@]}"; do
     if [[ -n i ]] && [ ! -f "../LookingGlass/dinosworkshop-com-${i}.dltest" ]; then
       echo "Creating $i test file"
-      shred --exact --iterations=1 --size="${i}" - > "../${i}.test"
+      shred --exact --iterations=1 --size="${i}" - > "../LookingGlass/dinosworkshop-com-${i}.dltest"
       A=$((A+1))
       sleep 1
     fi
