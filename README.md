@@ -6,7 +6,7 @@ This project has been modified for Dino's Workshop. Have any suggestions? Submit
 Our version is made to work on the Ubuntu operating system, though it should be fairly easy
 to tweak for other linux flavors.
 
-Download Latest Version: 
+Download Latest Version: [v1.4.1](https://gitlab.d1n0.link/dino/LookingGlass/repository/archive.zip?ref=v1.4.1)
 
 ## Overview
 
