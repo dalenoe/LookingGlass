@@ -1,10 +1,12 @@
 # LookingGlass
-### v1.4.0
+### v1.4.1
 
 This project has been modified for Dino's Workshop. Have any suggestions? Submit an issue.
 
 Our version is made to work on the Ubuntu operating system, though it should be fairly easy
 to tweak for other linux flavors.
+
+Download Latest Version: 
 
 ## Overview
 
