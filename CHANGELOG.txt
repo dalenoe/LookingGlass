@@ -1,10 +1,14 @@
+* 1.4.5 (5/5/2017)
+  * Added new theme file, not using it yet though.
+  * Added basic nmap functionality. See discussion on issue #1
+
 * 1.4.1 (4/22/2017)
   * Fixed bug regarding php5-sql, upgraded to php7.0-sql #8
   * Cleaned up repository #5
   * Fixed test files naming. #6
   * Added some project templates #7
 
-* 1.4.0 (4/20/2017)
+* 1.4.5 (4/20/2017)
   * nmap functionality added
   * README updated for Dino's Workshop
 

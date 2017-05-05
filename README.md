@@ -1,12 +1,12 @@
 # LookingGlass
-### v1.4.1
+### v1.4.5
 
 This project has been modified for Dino's Workshop. Have any suggestions? Submit an issue.
 
 Our version is made to work on the Ubuntu operating system, though it should be fairly easy
 to tweak for other linux flavors.
 
-Download Latest Version: [v1.4.1](https://gitlab.d1n0.link/dino/LookingGlass/repository/archive.zip?ref=v1.4.1)
+Download Latest Version: [v1.4.5](https://gitlab.d1n0.link/dino/LookingGlass/repository/archive.zip?ref=v1.4.5)
 
 ## Overview
 
@@ -54,7 +54,7 @@ _Forgot a setting? Simply run the `configure.sh` script again_
 
 ## Updating
 
-Install instructions will be updated for 1.4.0
+Install instructions will be updated for 1.4.5
 
 1. Download and extract on your webserver. Overwriting your existing install.
 2. Run configure.sh ```bash configure.sh```
