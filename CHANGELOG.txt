@@ -1,3 +1,7 @@
+* 1.4.6 (6/22/2017)
+  * Getting ready to fork to a different namespace. All my personal commits, will be squashed.
+  * Getting branches ready for new release cycle.
+
 * 1.4.5 (5/5/2017)
   * Added new theme file, not using it yet though.
   * Added basic nmap functionality. See discussion on issue #1
