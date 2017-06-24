@@ -3,9 +3,9 @@
 # LookingGlass - User friendly PHP Looking Glass
 #
 # package     LookingGlass
-# author      Nick Adams <nick@iamtelephone.com>
-# copyright   2015 Nick Adams.
-# link        http://iamtelephone.com
+# author      Dale Noe <dalenoe@gmail.com>
+# copyright   2017 Dale Noe.
+# link        https://dalenoe.com
 # license     http://opensource.org/licenses/MIT MIT License
 # version     1.4.5
 ################################
@@ -27,9 +27,9 @@ function createConfig()
  * LookingGlass - User friendly PHP Looking Glass
  *
  * @package     LookingGlass
- * @author      Nick Adams <nick@iamtelephone.com>
- * @copyright   2015 Nick Adams.
- * @link        http://iamtelephone.com
+ * @author      Dale Noe <dalenoe@gmail.com>
+ * @copyright   2017 Dale Noe.
+ * @link        https://dalenoe.com
  * @license     http://opensource.org/licenses/MIT MIT License
  * @version     1.4.5
  */
@@ -126,8 +126,7 @@ function database()
         cat <<EOF
 
 ##### IMPORTANT #####
-Please set the owner of LookingGlass (subdirectory) and ratelimit.db
-to that of your webserver:
+Please set the owner of LookingGlass (subdirectory) and ratelimit.db to that of your webserver:
 chown user:group LookingGlass
 chown user:group ratelimit.db
 #####################
@@ -256,7 +255,7 @@ function setup()
   read -e -p "Enter the servers location [${LOCATION}]: " LOC
   read -e -p "Enter the test IPv4 address [${IPV4}]: " IP4
   read -e -p "Enter the test IPv6 address (Re-enter everytime this script is run) [${IPV6}]: " IP6
-  read -e -p "Enter the size of test files in MB (Example: 25MB 50MB 100MB) [${TEST[*]}]: " T
+  read -e -p "Enter the size of test files in MB (Example: 100MB 500MB 1GB 5GB) [${TEST[*]}]: " T
   read -e -p "Do you wish to enable rate limiting of network commands? (y/n): " RATE
 
   # Check local vars aren't empty; Set new values
@@ -401,11 +400,8 @@ cat <<EOF
 # to create a functional Looking Glass
 # for your network.
 #
-# Created by Nick Adams (telephone)
-# http://iamtelephone.com
-#
-# Modified by Dale Noe (dino)
-# https://gitlab.d1n0.link/dino
+# Created by Dale Noe (dalenoe)
+# https://dalenoe.com
 #
 ########################################
 

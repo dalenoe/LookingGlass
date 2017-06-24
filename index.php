@@ -50,6 +50,20 @@ function getIp() {
 				</div>
 			</div>
 
+		  <!-- BETA Info Panel -->
+
+      <div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-info">
+						<div class="panel-heading">Beta Warning!</div>
+						<div class="panel-body">
+							<p>This software is currently in <strong>BETA</strong> status. It was orignally forked from <a href="github.com/telephone/LookingGlass">GitHub</a>,
+              and is in the process of being rewritten. It's going to take months, and I hope to get other contributers involved.</p>
+						</div>
+					</div>
+				</div>
+      </div>
+
 		  <!-- Network Information -->
 
 			<div class="row">
